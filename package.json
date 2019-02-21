@@ -1,0 +1,35 @@
+{
+  "name": "@mixer/retrieval",
+  "version": "1.0.0",
+  "description": "Utility types for representing asynchronous state retrieval",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "prepare": "tsc && tsc -p tsconfig.esm.json",
+    "test": "tsc && node dist/index.test.js",
+    "fmt": "prettier --write \"src/**/*.ts\"",
+    "build": "npm run prepare"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mixer/retrieval.git"
+  },
+  "keywords": [
+    "retrieval",
+    "redux",
+    "async"
+  ],
+  "author": "Connor Peet <connor@peet.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mixer/retrieval/issues"
+  },
+  "homepage": "https://github.com/mixer/retrieval#readme",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "chai": "^4.2.0",
+    "prettier": "^1.16.4",
+    "typescript": "^3.3.3"
+  }
+}
