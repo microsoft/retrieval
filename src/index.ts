@@ -35,7 +35,7 @@ export interface IWorkingRetrieval {
  */
 export interface IRetrievalError {
   state: RetrievalState.Errored;
-  error: IError
+  error: IError;
 }
 
 /**
@@ -44,7 +44,7 @@ export interface IRetrievalError {
 export interface IError {
   statusCode: number;
   serviceError?: IServiceError;
-  correlationVector ?: string;
+  correlationVector?: string;
 }
 
 /**
