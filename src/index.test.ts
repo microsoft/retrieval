@@ -16,7 +16,7 @@ if (value.state === RetrievalState.Succeeded) {
 }
 
 if (value.state === RetrievalState.Errored) {
-  doSomethingWith(!!value.serviceError);
+  doSomethingWith(!!value.error.serviceError);
 }
 
 const succeeded = success(true);
