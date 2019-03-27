@@ -1,7 +1,7 @@
 /**
  * State of the Retrieval<T>
  */
-export enum RetrievalState {
+export const enum RetrievalState {
   Idle,
   Retrieving,
   Succeeded,
