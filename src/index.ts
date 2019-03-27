@@ -31,6 +31,23 @@ export interface IWorkingRetrieval {
 }
 
 /**
+ * Error result from a retrieval.
+ */
+export interface IRetrievalError {
+  state: RetrievalState.Errored;
+  error: IError;
+}
+
+/**
+ *  Genric error interface that can be extended
+ */
+export interface IError {
+  statusCode: number;
+  serviceError?: IServiceError;
+  correlationVector?: string;
+}
+
+/**
  * Common contract for service error responses.
  */
 export interface IServiceError<T = void> {
@@ -39,16 +56,6 @@ export interface IServiceError<T = void> {
   path?: string[];
   helpUri?: string;
   metadata?: T;
-}
-
-/**
- * Error result from a retrieval.
- */
-export interface IRetrievalError {
-  state: RetrievalState.Errored;
-  statusCode: number;
-  serviceError?: IServiceError;
-  correlationVector?: string;
 }
 
 /**
