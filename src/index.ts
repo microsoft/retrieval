@@ -76,11 +76,21 @@ export const success = <T>(value: T): ISuccessfulRetrieval<T> => ({
 });
 
 /**
+ * Creates a errorful retrieval containing the given error.
+ */
+export const error = (error: IError): IRetrievalError => ({
+  state: RetrievalState.Errored,
+  error
+});
+
+/**
  * Returns if the retrieve is in a state (errored or idle) where we might
  * want to try it again.
  */
-export const shouldAttempt = (r: Retrieval<any>) =>
-  r.state === RetrievalState.Errored || r.state === RetrievalState.Idle;
+export const shouldAttempt = (retrieval: Retrieval<any> | RetrievalState) => {
+  const state = typeof retrieval === "number" ? retrieval : retrieval.state;
+  return state === RetrievalState.Errored || state === RetrievalState.Idle;
+};
 
 /**
  * Idle retrieval state constant.

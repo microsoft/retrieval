@@ -7,7 +7,7 @@ The 'top-level' type is `Retrieval<T>`, which models one of several state:
  - `Idle` - not retrieving anything
  - `Retrieving` - currently getting data
  - `Succeeded` - data was retrieved
- - `Error
+ - `Error` - an error occurred
 
 ### Pattern: Getting Simple Data
 

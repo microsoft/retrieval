@@ -24,3 +24,5 @@ expect(succeeded.state).to.equal(RetrievalState.Succeeded);
 expect(shouldAttempt(success(true))).to.be.false;
 expect(shouldAttempt(workingRetrival)).to.be.false;
 expect(shouldAttempt(idleRetrieval)).to.be.true;
+expect(shouldAttempt(workingRetrival.state)).to.be.false;
+expect(shouldAttempt(idleRetrieval.state)).to.be.true;
