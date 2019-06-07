@@ -24,13 +24,13 @@ interface IMyState {
 Then in your Reducer:
 
 ```ts
-import { workingRetrieval, success } from '@mixer/retrieval';
+import { error, workingRetrieval, success } from '@mixer/retrieval';
 
 switch (action.type) {
   case getType(getCool.request):
     return { ...state, isCool: workingRetrieval };
   case getType(getCool.failure):
-    return { ...state, isCool: action.payload /* IErrorRetrieval */ };
+    return { ...state, isCool: error(action.payload) /* IError */ };
   case getType(getCool.success):
     return { ...state, isCool: success(action.payload /* boolean */) };
 }
@@ -62,13 +62,13 @@ Then in your reducer:
 
 ```ts
 
-import { workingRetrieval, success } from '@mixer/retrieval';
+import { error, workingRetrieval, success } from '@mixer/retrieval';
 
 switch (action.type) {
   case getType(getCool.request):
     return { ...state, continuationToken: workingRetrieval };
   case getType(getCool.failure):
-    return { ...state, continuationToken: action.payload /* IErrorRetrieval */ };
+    return { ...state, continuationToken: error(action.payload /* IError */) };
   case getType(getCool.success):
     return {
       ...state,
@@ -88,4 +88,47 @@ export const getMightHaveMoreData = (state: IMyState): boolean => {
   const ct = state.continuationToken;
   return ct.state !== RetrievalState.Succeeded || !!ct.value;
 };
+```
+
+### Pattern: Updating Data
+
+The idea here is that you keep a retrieval with your read data data, and then another as an indicator of your loading state.
+
+```ts
+import { Retrieval } from '@mixer/retrieval';
+
+interface IMyState {
+  data: ReadonlyArray<IMyData>;
+  updating: Retrieval<void>;
+}
+```
+
+Then in your reducer:
+
+```ts
+
+import { workingRetrieval, success } from '@mixer/retrieval';
+
+switch (action.type) {
+  case getType(getData.request):
+    return { ...state, data: workingRetrieval };
+  case getType(getData.failure):
+    return { ...state, data: error(action.payload /* IError */) };
+  case getType(getData.success):
+    return { ...state, data: success(action.payload /* IMyData */) };
+    
+  case getType(updateData.request):
+    return { ...state, updating: workingRetrieval };
+  case getType(updateData.failure):
+    return { ...state, updating: error(action.payload /* IError */) };
+  case getType(updateData.success):
+    return {
+    ...state,
+    updating : success(),
+    // Then "apply" the changes to your data
+    data: state.data.state === RetrievalState.Success
+      ? success(action.payload /* IMyData */)
+      : state.data
+   };
+}
 ```
